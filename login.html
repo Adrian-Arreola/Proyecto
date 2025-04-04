@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Patty's Nevería</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #40c000;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid #ffb300;
+        }
+        h2 {
+            margin-bottom: 1rem;
+            color: #ffb300;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #ffb300;
+            color: white;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #e09c00;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Patty's Nevería</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Nombre</label>
+                <input type="text" id="username" placeholder="Ingresa tu nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            let errorMessage = document.getElementById('errorMessage');
+            
+            if (username === 'adrian' && password === 'adrian123') {
+                alert('Bienvenido, Adrian!');
+                window.location.href = 'index.html';
+            } else {
+                errorMessage.textContent = 'Nombre o contraseña incorrectos';
+            }
+        });
+    </script>
+</body>
+</html>
