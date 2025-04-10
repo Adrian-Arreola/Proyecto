@@ -7,6 +7,12 @@ function enviarQueja(event) {
     const queja = document.getElementById('queja').value.trim();
     const errorMessages = document.getElementById('errorMessages');
 
+    // 🔐 Verificación especial para admin01
+    if (nombre.toLowerCase() === 'admin01') {
+        window.location.href = 'admin.html';
+        return false; // Detener el envío normal del formulario
+    }
+
     errorMessages.innerHTML = '';
     errorMessages.style.display = 'none';
 
@@ -16,7 +22,7 @@ function enviarQueja(event) {
         errors.push('Por favor, complete todos los campos.');
     }
 
-    if (telefono.length <10) {
+    if (telefono.length < 10) {
         errors.push('Por favor, ingrese un número de teléfono válido (10 dígitos).');
     }
 
@@ -41,6 +47,21 @@ function enviarQueja(event) {
         return false;
     }
 
+    const quejaData = {
+        nombre: nombre,
+        telefono: telefono,
+        correo: correo,
+        queja: queja
+    };
+
+    let quejas = JSON.parse(localStorage.getItem('quejas')) || [];
+    quejas.push(quejaData);
+    localStorage.setItem('quejas', JSON.stringify(quejas));
+
     alert('Se envió la queja exitosamente');
+    document.getElementById('quejaForm').reset();
+
+    mostrarQuejas();
+
     return true;
 }

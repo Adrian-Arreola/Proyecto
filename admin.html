@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador - Patty's Nevería</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f5e6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header-admin {
+            display: flex;
+            padding: 10px 20px;
+            gap: 20px;
+
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin: auto;
+        }
+
+        .queja-card {
+            background-color: #c8e6c9;
+            border: 2px solid #81c784;
+            border-radius: 10px;
+            margin-left: 100px;
+            margin-right: 100px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0, 128, 0, 0.2);
+        }
+
+        .queja-card h3 {
+            margin: 0 0 10px;
+            color: #1b5e20;
+        }
+
+        .queja-card p {
+            margin: 4px 0;
+        }
+
+        .acciones {
+            margin-top: 10px;
+        }
+
+        button {
+            margin-right: 8px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .editar {
+            background-color: #81c784;
+            color: white;
+        }
+
+        .borrar {
+            background-color: #388e3c;
+            color: white;
+        }
+
+        .editar:hover,
+        .borrar:hover {
+            opacity: 0.9;
+        }
+
+        .no-quejas {
+            text-align: center;
+            color: #666;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="header-admin">
+            <img src="Imagenes/pattys.png" alt="" class="logo">
+            <h1>Panel de Quejas</h1>
+        </div>
+    </header>
+
+    <div id="listaQuejas"></div>
+
+    <script>
+        function cargarQuejas() {
+            const contenedor = document.getElementById('listaQuejas');
+            contenedor.innerHTML = '';
+            const quejas = JSON.parse(localStorage.getItem('quejas')) || [];
+
+            if (quejas.length === 0) {
+                contenedor.innerHTML = '<p class="no-quejas">No hay quejas registradas.</p>';
+                return;
+            }
+
+            quejas.forEach((queja, index) => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'queja-card';
+                tarjeta.innerHTML = `
+                    <h3>${queja.nombre}</h3>
+                    <p><strong>Teléfono:</strong> ${queja.telefono}</p>
+                    <p><strong>Correo:</strong> ${queja.correo}</p>
+                    <p><strong>Queja:</strong> <span id="texto-queja-${index}">${queja.queja}</span></p>
+                    <div class="acciones">
+                        <button class="editar" onclick="editarQueja(${index})">Editar</button>
+                        <button class="borrar" onclick="borrarQueja(${index})">Borrar</button>
+                    </div>
+                `;
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        function borrarQueja(index) {
+            if (confirm("¿Estás seguro de borrar esta queja?")) {
+                const quejas = JSON.parse(localStorage.getItem('quejas')) || [];
+                quejas.splice(index, 1);
+                localStorage.setItem('quejas', JSON.stringify(quejas));
+                cargarQuejas();
+            }
+        }
+
+        function editarQueja(index) {
+            const quejas = JSON.parse(localStorage.getItem('quejas')) || [];
+            const nuevaQueja = prompt("Edita la queja:", quejas[index].queja);
+            if (nuevaQueja !== null && nuevaQueja.trim().length >= 10) {
+                quejas[index].queja = nuevaQueja.trim();
+                localStorage.setItem('quejas', JSON.stringify(quejas));
+                cargarQuejas();
+            } else if (nuevaQueja !== null) {
+                alert("La queja debe tener al menos 10 caracteres.");
+            }
+        }
+
+        // Cargar quejas al abrir
+        window.onload = cargarQuejas;
+    </script>
+</body>
+
+</html>

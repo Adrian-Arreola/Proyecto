@@ -9,17 +9,7 @@ body {
     flex-direction: column;
 }
 
-.borde-izquierdo,
-.borde-derecho {
-    position: fixed;
-    top: 0;
-    width: 10vw;
-    height: 100vh;
-    background-image: url('Imagenes/fondo.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: 5;
-}
+
 
 
 .contenedor {
