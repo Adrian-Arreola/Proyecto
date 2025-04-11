@@ -7,7 +7,7 @@ function enviarQueja(event) {
     const queja = document.getElementById('queja').value.trim();
     const errorMessages = document.getElementById('errorMessages');
 
-    // 🔐 Verificación especial para admin01
+    // Verificación para admin01
     if (nombre.toLowerCase() === 'admin01') {
         window.location.href = 'admin.html';
         return false; // Detener el envío normal del formulario
@@ -60,8 +60,6 @@ function enviarQueja(event) {
 
     alert('Se envió la queja exitosamente');
     document.getElementById('quejaForm').reset();
-
-    mostrarQuejas();
-
+    
     return true;
 }

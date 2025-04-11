@@ -99,6 +99,7 @@
     <div id="listaQuejas"></div>
 
     <script>
+        //ESTA ES LA FUNCION PARA CARGAR LAS QUEJAS
         function cargarQuejas() {
             const contenedor = document.getElementById('listaQuejas');
             contenedor.innerHTML = '';
@@ -126,6 +127,7 @@
             });
         }
 
+        //FUNCION PARA BORRAR UNA QUEJA
         function borrarQueja(index) {
             if (confirm("¿Estás seguro de borrar esta queja?")) {
                 const quejas = JSON.parse(localStorage.getItem('quejas')) || [];
@@ -135,6 +137,7 @@
             }
         }
 
+        //FUNCION PARA EDITAR UNA QUEJA
         function editarQueja(index) {
             const quejas = JSON.parse(localStorage.getItem('quejas')) || [];
             const nuevaQueja = prompt("Edita la queja:", quejas[index].queja);
@@ -147,7 +150,7 @@
             }
         }
 
-        // Cargar quejas al abrir
+        // CARGAR QUEJAS
         window.onload = cargarQuejas;
     </script>
 </body>
